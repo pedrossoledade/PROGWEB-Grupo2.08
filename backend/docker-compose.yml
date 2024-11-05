@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.app
+    image: pelika/backend-image
+    container_name: pelika-backend
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+
+      
+  postgres:
+    build: 
+      context: ./postgres
+      dockerfile: Dockerfile.postgres
+
+    image: pelika/postgres-image
+    container_name: pelika-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: pelika
+    volumes:
+      - pelika_pg_data:/var/lib/postgresql/data
+
+volumes:
+  pelika_pg_data:
