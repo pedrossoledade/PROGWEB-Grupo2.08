@@ -7,18 +7,22 @@ services:
       dockerfile: Dockerfile.app
     image: pelika/backend-image
     container_name: pelika-backend
-    command: npm start
+    command: sh -c "cd src && npx prisma generate && npm start"
+    
     ports:
       - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/pelika
     volumes:
       - .:/app
 
-      
+    depends_on:
+      - postgres
+
   postgres:
     build: 
       context: ./postgres
       dockerfile: Dockerfile.postgres
-
     image: pelika/postgres-image
     container_name: pelika-postgres
     ports:
