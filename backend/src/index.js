@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Usando as rotas de usuário
 app.use('/user', userRoutes);
