@@ -13,6 +13,7 @@ const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET;
 
 router.post('/register', async (req, res) => {
+  console.log(req.body);
   const { name, cpf, phone, email, password, confirmPassword } = req.body;
 
   if (!name || !cpf || !phone || !email || !password || !confirmPassword) {
@@ -25,13 +26,21 @@ router.post('/register', async (req, res) => {
       return res.status(400).json({ message: 'As senhas não coincidem' });
     }
 
-    // Verificar se o usuário já existe
-    const existingUser = await prisma.user.findUnique({
-      where: { email }
+    // Verificar se o usuário já existe (email ou CPF)
+    const existingUser = await prisma.user.findFirst({
+        where: {
+            OR: [
+                { email: email },
+                { cpf: cpf }
+            ]
+        }
     });
+    console.log('existingUser:', existingUser);
 
     if (existingUser) {
-      return res.status(400).json({ message: 'Usuário já existe' });
+        const field = existingUser.email === email ? 'email' : 'CPF';
+        console.log(`User already exists with ${field}`);
+        return res.status(400).json({ message: `Usuário já existe com este ${field}` });
     }
 
     // Encriptar a senha
@@ -51,7 +60,9 @@ router.post('/register', async (req, res) => {
     // Gerar um token JWT
     const token = jwt.sign({ userId: newUser.id }, JWT_SECRET, { expiresIn: '1h' });
 
-    // Enviar o token como resposta
+    // Enviar o token como resposta[
+    console.log('Token:', token);
+    console.log('Usuário registrado com sucesso');
     res.status(201).json({token, message: 'Usuário registrado com sucesso'});
   } catch (error) {
     console.error('Error registering user:', error);
@@ -60,11 +71,19 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: 'Email e senha são obrigatórios' });
+  
+  if (!email) {
+    return res.status(400).json({ message: 'O campo email é obrigatório' });
   }
+  if (!password) {
+    return res.status(400).json({ message: 'O campo senha é obrigatório' });
+  }
+  
+  console.log('email:', email);
+  console.log('password:', password)
 
   try {
     // Verificar se o usuário existe
@@ -73,18 +92,21 @@ router.post('/login', async (req, res) => {
     });
 
     if (!user) {
+      console.log('User not found');
       return res.status(401).json({ message: 'Credenciais inválidas' });
     }
 
     // Verificar se a senha está correta
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
+      console.log('Invalid password');
       return res.status(401).json({ message: 'Credenciais inválidas' });
     }
 
     // Gerar um token JWT
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '1h' });
-
+    console.log('Token:', token);
+    console.log("Login realizado com sucesso");
     // Enviar o token como resposta
     res.json({token, message: 'Login realizado com sucesso'});
   } catch (error) {
