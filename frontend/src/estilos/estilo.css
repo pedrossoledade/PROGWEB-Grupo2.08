@@ -1,0 +1,24 @@
+.icone{
+    width: 60px;
+    margin: 15px 20px 10px 40px;
+}
+
+.pesquisa{
+    width: 500px;
+    border-radius: 5px;
+    margin: 0 20px 0 400px;
+    border: 1px solid white;
+}
+.lupa{
+    margin-right: 200px;
+}
+
+.perfil{
+    width: 30px;
+}
+.seta{
+    width: 10px;
+}
+.texto_cadastro{
+    margin-top: 10px;
+}
