@@ -1,7 +1,7 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
-class UserModel {
+class UserRepository {
     async findByEmail(email) {
         return await prisma.user.findUnique({
             where: { email }
@@ -26,4 +26,4 @@ class UserModel {
     }
 }
 
-module.exports = new UserModel();
+module.exports = new UserRepository();

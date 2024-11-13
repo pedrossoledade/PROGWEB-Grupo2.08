@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const UserModel = require('../models/userModel');
+const UserRepository = require('../repository/userRepository');
 
 class UserService {
     constructor() {
@@ -18,14 +18,14 @@ class UserService {
             throw new Error('As senhas não coincidem');
         }
 
-        const existingUser = await UserModel.findByEmailOrCpf(email, cpf);
+        const existingUser = await UserRepository.findByEmailOrCpf(email, cpf);
         if (existingUser) {
             const field = existingUser.email === email ? 'email' : 'CPF';
             throw new Error(`Usuário já existe com este ${field}`);
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser = await UserModel.create({
+        const newUser = await UserRepository.create({
             name,
             cpf,
             phone,
@@ -47,7 +47,7 @@ class UserService {
             throw new Error('O campo senha é obrigatório');
         }
 
-        const user = await UserModel.findByEmail(email);
+        const user = await UserRepository.findByEmail(email);
         if (!user) {
             throw new Error('Credenciais inválidas');
         }
