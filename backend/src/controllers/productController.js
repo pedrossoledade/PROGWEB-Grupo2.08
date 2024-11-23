@@ -4,7 +4,7 @@ class ProductController{
     
     async getAllProducts(req, res){
         try{
-            const products = await ProductService.getAllProducts();
+            const products = await ProductService.getAllProduct();
             res.status(200).json(products);
         }catch(error){
             res.status(500).json({error: error.message});
