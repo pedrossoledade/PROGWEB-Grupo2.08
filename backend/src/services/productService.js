@@ -15,11 +15,11 @@ class ProductService{
     }
 
     async getProductByCategory(category){
-        return await productRepository.findByCategory();
+        return await ProductRepository.findByCategory();
     }
 
     async getProductByCategoryId(categoryId){
-        return await productRepository.findByCategory();
+        return await ProductRepository.findByCategory();
     }
 
 
