@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ProductController = require('../controllers/ProductController');
+const ProductController = require('../controllers/productController');
 
 // Rota para buscar todos os produtos
 router.get('/products', ProductController.getAllProducts);
