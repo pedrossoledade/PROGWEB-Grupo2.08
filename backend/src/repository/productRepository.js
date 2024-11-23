@@ -2,6 +2,7 @@ const { PrismaClient } = require('../prisma/client');
 const prisma = new PrismaClient();
 
 class ProductRepository {
+    // find
     async findAll() {
         return await prisma.product.findMany();
     }
@@ -9,6 +10,14 @@ class ProductRepository {
     async findById(id) {
         return await prisma.product.findUnique({
             where: { id }
+        });
+    }
+    
+    async findByName(name){
+        return await prisma.product.findMany({
+            where: {
+                name: name
+            }
         });
     }
 
@@ -31,6 +40,7 @@ class ProductRepository {
             }
         });
     }
+
 
     async create(productData) {
             return await prisma.product.create({
