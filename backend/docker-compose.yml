@@ -25,6 +25,8 @@ services:
       dockerfile: Dockerfile.prisma
     image: pelika/prisma-image
     container_name: pelika-prisma
+    ports:
+      - "5555:5555"
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/pelika}
     volumes:
