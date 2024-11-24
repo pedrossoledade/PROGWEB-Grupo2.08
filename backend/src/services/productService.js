@@ -1,36 +1,41 @@
 const ProductRepository = require("../repository/productRepository");
+const prisma = require("../prisma/prismaClient");
 
 class ProductService {
+    constructor() {
+        this.productRepository = new ProductRepository(prisma);
+    }
+
     async getAllProduct() {
-        return await ProductRepository.findAll();
+        return await this.productRepository.findAll();
     }
 
     async getProductById(id) {
-        return await ProductRepository.findById(id);
+        return await this.productRepository.findById(id);
     }
 
     async getProductByName(productName) {
-        return await ProductRepository.findByName(productName);
+        return await this.productRepository.findByName(productName);
     }
 
     async getProductByCategory(category) {
-        return await ProductRepository.findByCategory(category);
+        return await this.productRepository.findByCategory(category);
     }
 
     async getProductByCategoryId(categoryId) {
-        return await ProductRepository.findByCategoryId(categoryId);
+        return await this.productRepository.findByCategoryId(categoryId);
     }
 
     async createProduct(productData) {
-        return await ProductRepository.create(productData);
+        return await this.productRepository.create(productData);
     }
 
     async updateProduct(id, productData) {
-        return await ProductRepository.update(id, productData);
+        return await this.productRepository.update(id, productData);
     }
 
     async deleteProduct(id) {
-        return await ProductRepository.delete(id);
+        return await this.productRepository.delete(id);
     }
 }
 
