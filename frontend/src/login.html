@@ -1,10 +1,3 @@
-<script>
-    if (localStorage.getItem('token')) {
-        console.log('Usuário logado');
-        console.log(localStorage.getItem('token'));
-    }
-</script>
-
 <!DOCTYPE html>
 <html lang="PT-BR">
 
@@ -17,75 +10,36 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="estilos/estilo.css" rel="stylesheet" />
+    <link href="estilos/login.css" rel="stylesheet" />
     <link href="funcoes.js">
-
-    <title>Login</title>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #1c6494">
-        <div class="container-fluid">
-            <img class="icone" src="imagens/icone.png">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <form class="d-flex">
-                <input class="pesquisa" type="search" placeholder="Digite o que você procura" aria-label="Search">
-                <img class="lupa" src="imagens/lupa.png">
+    <div class="container d-flex align-items-center justify-content-center vh-100">
+        <div class="card p-4 formulario" style="width: 100%; max-width: 800px;">
+            <img class="logo" src="imagens/logo.png">
+            <h3 class="text-center mb-4 text-white">Fazer login?</h3>
+            <form action="/login" method="POST">
+                <!-- Campo de Email -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email" required>
+                </div>
+
+                <!-- Campo de Senha -->
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <!-- Botão de Login -->
+                <button type="submit" class="btn text-white d-flex align-items-center enviar">Entrar<img class="seta" src="imagens/seta-direita.png"></button>
             </form>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img class="perfil" src="imagens/carrinho.png"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#myModal"><img
-                                class="perfil" src="imagens/perfil.png"></a>
-
-                        <!-- O Modal -->
-                        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <!-- Cabeçalho do modal -->
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel">Entre na sua conta</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Fechar"></button>
-                                    </div>
-                                    <!-- Corpo do modal -->
-                                    <div class="modal-body">
-                                        <form action="http://localhost:3000/user/login" method="POST" onsubmit="login(event)">
-                                          <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email" required>
-                                          </div>
-                                          <div class="mb-3">
-                                            <label for="password" class="form-label">Senha</label>
-                                            <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
-                                          </div>
-                                          <div class="d-flex justify-content-between col-4">
-                                            <button type="submit" class="btn btn-primary">Entrar <img class="seta" src="imagens/seta-direita.png"></button>
-                                          </div>
-                                        </form>
-                                        <p class="texto_cadastro">Não possui login? Cadastre-se! <a href="cadastro.html">Fazer cadastro.</a></p>
-                                      </div>
-                                    <!-- Rodapé do modal -->
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Fechar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+            <p class="texto_cadastro">Não possui login? Cadastre-se! <a href="cadastro.html" class="link-cadastro">Fazer cadastro.</a></p>
         </div>
-    </nav>
-</body>
+    </div>
 
-</html>
+    <!-- Scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
