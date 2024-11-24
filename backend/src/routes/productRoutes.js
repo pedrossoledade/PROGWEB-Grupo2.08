@@ -6,7 +6,7 @@ const productController = require('../controllers/productController');
 router.get('/', productController.getAllProducts);
 
 // Rota para buscar um produto pelo ID
-router.get('/:id', productController.getProductById);
+router.get('/findById/:id', productController.getProductById);
 
 // Rota para buscar produtos pelo nome
 router.get('/name/:name', productController.getProductByName);
