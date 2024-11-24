@@ -1,10 +1,10 @@
-const ProductService = require("../services/productService");
+const productService = require("../services/productService");
 
 class ProductController{
     
     async getAllProducts(req, res){
         try{
-            const products = await ProductService.getAllProduct();
+            const products = await productService.getAllProduct();
             res.status(200).json(products);
         }catch(error){
             res.status(500).json({error: error.message});
@@ -13,7 +13,7 @@ class ProductController{
     
     async getProductById(req, res){
         try{
-            const product = await ProductService.getProductById(req.params.id);
+            const product = await productService.getProductById(req.params.id);
             if (product){
                 res.status(200).json(product);
             } else{
@@ -26,7 +26,7 @@ class ProductController{
 
     async getProductByName(req, res) {
         try {
-            const products = await ProductService.getProductByName(req.params.name);
+            const products = await productService.getProductByName(req.params.name);
             res.status(200).json(products); // 200 OK
         } catch (error) {
             res.status(500).json({ error: error.message }); // 500 Internal Server Error
@@ -35,7 +35,7 @@ class ProductController{
 
     async getProductByCategory(req, res) {
         try {
-            const products = await ProductService.getProductByCategory(req.params.category);
+            const products = await productService.getProductByCategory(req.params.category);
             res.status(200).json(products); // 200 OK
         } catch (error) {
             res.status(500).json({ error: error.message }); // 500 Internal Server Error
@@ -44,7 +44,7 @@ class ProductController{
 
     async getProductByCategoryId(req, res) {
         try {
-            const products = await ProductService.getProductByCategoryId(req.params.categoryId);
+            const products = await productService.getProductByCategoryId(req.params.categoryId);
             res.status(200).json(products); // 200 OK
         } catch (error) {
             res.status(500).json({ error: error.message }); // 500 Internal Server Error
@@ -54,7 +54,7 @@ class ProductController{
 
     async createProduct(req, res){
         try {
-            const newProduct = await ProductService.createProduct(req.body);
+            const newProduct = await productService.createProduct(req.body);
             req.status(201).json(newProduct);
         } catch (error) {
             res.status(500).json({error: error.message});
@@ -63,7 +63,7 @@ class ProductController{
 
     async updateProduct(req, res){
         try {
-            const updatedProduct = await ProductService.updateProduct(req.params.id, req.body);
+            const updatedProduct = await productService.updateProduct(req.params.id, req.body);
             res.status(200).json(updatedProduct);
         } catch (error) {
             res.status(500).json({error: error.message});
@@ -72,7 +72,7 @@ class ProductController{
 
     async deleteProduct(req, res) {
         try {
-            await ProductService.deleteProduct(req.params.id);
+            await productService.deleteProduct(req.params.id);
             res.sendStatus(204); // 204 No Content
         } catch (error) {
             res.status(500).json({ error: error.message }); // 500 Internal Server Error
