@@ -8,6 +8,7 @@ services:
     container_name: pelika-backend
     ports:
       - "${PORT_APP:-3000}:3000"
+      - "4444:5555"
     environment:
       - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/pelika}
       - JWT_SECRET=${JWT_SECRET:-grupo_revelacao_deixaAcontecerNaturalmenteEuNaoQueroVerVoceChorarDeixaQueOAmorEncontreAGente}
