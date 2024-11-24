@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const testConnection = require('./prisma/testConnection.js');
 const userRoutes = require('./routes/userRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
+const categoryRoutes = require('./routes/categoryRoutes.js');
 
 // Carregar variáveis de ambiente do arquivo .env
 dotenv.config();
@@ -18,6 +19,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/user', userRoutes);
 // rotas de produto
 app.use('/', productRoutes)
+// rotas de categoria dentro de produto
+app.use('/product/categories', categoryRoutes);
 
 app.get('/', (req, res) => {
   const msg = 'Hello World';
