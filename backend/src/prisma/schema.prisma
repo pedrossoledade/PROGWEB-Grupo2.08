@@ -23,10 +23,10 @@ model Product {
   code          String             @unique
   name          String
   price         Float
-  photo         String
+  photo         String?
   stockQuantity Int
-  weight        Float
-  categories    ProductCategory[]
+  weight        Float?
+  categories    Category[] @relation("ProductCategory")
   variation     Variation[]
   dimension    Dimension[]
 }
@@ -34,16 +34,7 @@ model Product {
 model Category {
   id Int @id @default(autoincrement())
   name String
-  products ProductCategory[]
-}
-
-model ProductCategory {
-  productId Int
-  categoryId Int
-  product Product @relation(fields: [productId], references: [id])
-  category Category @relation(fields: [categoryId], references: [id])
-
-  @@id([productId, categoryId])
+  products Product[]  @relation("ProductCategory")
 }
 
 model Variation {
