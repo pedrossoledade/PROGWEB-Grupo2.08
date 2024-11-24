@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // rotas de usuário
 app.use('/user', userRoutes);
 // rotas de produto
-app.use('/product', productRoutes)
+app.use('/', productRoutes)
 
 app.get('/', (req, res) => {
   const msg = 'Hello World';
