@@ -1,0 +1,40 @@
+.enviar:hover{
+    background-color: #ED820E;
+}
+
+.seta{
+    width: 15px;
+    margin-left: 5px;
+}
+
+.enviar{
+    margin: 15px 10px 10px 220px; 
+    padding: 10px 130px; 
+    background-color: orange;
+    justify-content: center;
+}
+
+.form-group{
+    margin: 10px;
+    color: white;
+}
+.texto_cadastro{
+    margin-top: 10px;
+    color: white;
+}
+
+.logo{
+    width: 200px;
+    margin-left: 270px;
+}
+
+.formulario{
+    background-color: #1c6494;
+}
+.link-cadastro{
+    color:white;
+}
+
+.link-cadastro:hover{
+    color:rgb(180, 176, 176);
+}
