@@ -1,7 +1,6 @@
 const ProductRepository = require("../repository/productRepository");
 
-class ProductService{
-
+class ProductService {
     async getAllProduct() {
         return await ProductRepository.findAll();
     }
@@ -10,31 +9,29 @@ class ProductService{
         return await ProductRepository.findById(id);
     }
 
-    async getProductByName(productName){
+    async getProductByName(productName) {
         return await ProductRepository.findByName(productName);
     }
 
-    async getProductByCategory(category){
-        return await ProductRepository.findByCategory();
+    async getProductByCategory(category) {
+        return await ProductRepository.findByCategory(category);
     }
 
-    async getProductByCategoryId(categoryId){
-        return await ProductRepository.findByCategory();
+    async getProductByCategoryId(categoryId) {
+        return await ProductRepository.findByCategoryId(categoryId);
     }
 
-
-    async createProduct(productData){
-        return await ProductRepository.create( productData);
+    async createProduct(productData) {
+        return await ProductRepository.create(productData);
     }
 
-    async updateProduct(id, productData){
+    async updateProduct(id, productData) {
         return await ProductRepository.update(id, productData);
     }
 
-    async deleteProduct(id){
+    async deleteProduct(id) {
         return await ProductRepository.delete(id);
     }
-    
 }
 
 module.exports = new ProductService();
