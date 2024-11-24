@@ -16,5 +16,5 @@ RUN if [ -f .env ]; then cp .env .env; fi
 # Gere o Prisma Client
 RUN npx prisma generate
 
-# Execute as migrações do Prisma
-CMD ["npx", "prisma", "migrate", "deploy"]
+# Execute as migrações do Prisma e mantenha o contêiner em execução
+CMD ["sh", "-c", "npx prisma migrate deploy && tail -f /dev/null"]
