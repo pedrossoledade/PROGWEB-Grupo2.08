@@ -1,15 +1,16 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+class UserRepository {
+    constructor(prisma) {
+        this.prisma = prisma;
+    }
 
-class UserModel {
     async findByEmail(email) {
-        return await prisma.user.findUnique({
+        return await this.prisma.user.findUnique({
             where: { email }
         });
     }
 
     async findByEmailOrCpf(email, cpf) {
-        return await prisma.user.findFirst({
+        return await this.prisma.user.findFirst({
             where: {
                 OR: [
                     { email },
@@ -20,10 +21,10 @@ class UserModel {
     }
 
     async create(userData) {
-        return await prisma.user.create({
+        return await this.prisma.user.create({
             data: userData
         });
     }
 }
 
-module.exports = new UserModel();
+module.exports = UserRepository;

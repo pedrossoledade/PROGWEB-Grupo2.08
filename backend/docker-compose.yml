@@ -6,26 +6,48 @@ services:
       dockerfile: Dockerfile.app
     image: pelika/backend-image
     container_name: pelika-backend
-    command: sh -c "npx prisma migrate deploy && npx prisma generate && npm start"
     ports:
-      - "3000:3000"
+      - "${PORT_APP:-3000}:3000"
+      - "4444:5555"
     environment:
-      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/pelika
-      - JWT_SECRET=grupo_revelacao_deixaAcontecerNaturalmenteEuNaoQueroVerVoceChorarDeixaQueOAmorEncontreAGente
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/pelika}
+      - JWT_SECRET=${JWT_SECRET:-grupo_revelacao_deixaAcontecerNaturalmenteEuNaoQueroVerVoceChorarDeixaQueOAmorEncontreAGente}
+      - PORT=${PORT_APP:-3000}
     volumes:
       - .:/app
+      - prisma-client:/usr/app/node_modules/.prisma/client
     depends_on:
       - postgres
+      - prisma
+
+  prisma:
+    build:
+      context: .
+      dockerfile: Dockerfile.prisma
+    image: pelika/prisma-image
+    container_name: pelika-prisma
+    ports:
+      - "5555:5555"
+    environment:
+      - DATABASE_URL=${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/pelika}
+    volumes:
+      - .:/app
+      - prisma-client:/usr/app/node_modules/.prisma/client
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:latest
     container_name: pelika-postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: pelika
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-pelika}
     volumes:
       - pelika_pg_data:/var/lib/postgresql/data
+
 volumes:
   pelika_pg_data:
+  prisma-client:
