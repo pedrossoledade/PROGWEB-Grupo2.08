@@ -1,40 +1,127 @@
-.enviar:hover{
+/* Estilos gerais para os lados esquerdo e direito */
+.container-fluid {
+    display: flex;
+    height: 100vh;
+    background-color: #1c6494; /* Fundo azul */
+}
+
+/* Lado esquerdo */
+.left-side {
+    background-color: #1c6494; /* Azul */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    flex: 1; /* Para ocupar o espaço restante no layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo dentro do lado esquerdo */
+.logo {
+    width: 200px;
+    margin-bottom: 30px;
+}
+
+/* Lado direito com o formulário */
+.right-side {
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    flex: 1; /* Para ocupar o espaço restante no layout */
+}
+
+/* Estilo do formulário */
+.formulario {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para os campos do formulário */
+.form-group {
+    margin: 10px 0;
+}
+
+/* Estilo do botão de envio */
+.enviar {
+    padding: 10px 130px; 
+    background-color: orange;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hover do botão de envio */
+.enviar:hover {
     background-color: #ED820E;
 }
 
-.seta{
+/* Ícone da seta dentro do botão */
+.seta {
     width: 15px;
     margin-left: 5px;
 }
 
-.enviar{
-    margin: 15px 10px 10px 220px; 
-    padding: 10px 130px; 
-    background-color: orange;
-    justify-content: center;
-}
-
-.form-group{
-    margin: 10px;
-    color: white;
-}
-.texto_cadastro{
+/* Estilo do texto "Não possui login?" */
+.texto_cadastro {
     margin-top: 10px;
-    color: white;
+    text-align: center;
 }
 
-.logo{
-    width: 200px;
-    margin-left: 270px;
+/* Estilo do link de cadastro */
+.link-cadastro {
+    color: #1c6494;
 }
 
-.formulario{
-    background-color: #1c6494;
-}
-.link-cadastro{
-    color:white;
+.link-cadastro:hover {
+    color: rgb(180, 176, 176);
 }
 
-.link-cadastro:hover{
-    color:rgb(180, 176, 176);
+/* Responsividade para telas menores */
+@media (max-width: 767px) {
+    /* Ajustando o layout para telas pequenas */
+    .container-fluid {
+        flex-direction: column;
+    }
+
+    /* Ajustando a logo e texto para telas pequenas */
+    .left-side {
+        margin-bottom: 20px;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .logo {
+        width: 150px; /* Reduzindo o tamanho da logo */
+    }
+
+    /* Ajustando o formulário para telas pequenas */
+    .formulario {
+        padding: 20px;
+        width: 90%; /* Deixe o formulário ocupar quase toda a largura */
+    }
+
+    /* Ajuste do botão de envio para telas menores */
+    .enviar {
+        padding: 10px 50px;
+    }
+
+    /* Ajustando a margem do botão e outros elementos no formulário */
+    .form-group {
+        margin: 15px 0;
+    }
+
+    .texto_cadastro {
+        font-size: 14px; /* Menor tamanho de texto para dispositivos móveis */
+    }
 }
