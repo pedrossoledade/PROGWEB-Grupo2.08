@@ -49,6 +49,14 @@ class ProductRepository {
             where: { id }
         });
     }
+
+    async updateStock(productId, quantity) {
+        const product = await this.findById(productId);
+        return await this.prisma.product.update({
+            where: { id: productId },
+            data: { stockQuantity: product.stockQuantity - quantity }
+        });
+    }
 }
 
 module.exports = ProductRepository;
