@@ -67,9 +67,10 @@
 }
 
 /* Ícone da seta dentro do botão */
-.seta {
+.custom-icon {
     width: 15px;
     margin-left: 5px;
+    color: black;
 }
 
 /* Estilo do texto "Não possui login?" */
