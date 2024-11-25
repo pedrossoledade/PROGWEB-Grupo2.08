@@ -24,3 +24,12 @@ h2 {
     max-height: 300px;
     object-fit: cover;
 }
+
+.nav-bar-custom {
+    padding: 0rem 0;
+    background-color: #3D5671;
+}
+
+.nav-link {
+    text-transform: uppercase;
+}
