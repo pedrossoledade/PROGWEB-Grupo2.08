@@ -16,91 +16,28 @@
     <title>Template</title>
 </head>
 
-<!--
-<body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #1c6494">
-        <div class="container-fluid">
-            <img class="icone" src="imagens/icone.png">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <form class="d-flex">
-                <input class="pesquisa" type="search" placeholder="Digite o que você procura" aria-label="Search">
-                <img class="lupa" src="imagens/lupa.png">
-            </form>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><img class="perfil" src="imagens/carrinho.png"></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html" target="_blank"><img
-                                class="perfil" src="imagens/perfil.png"></a>
-                        -->
-
-<style>
-    header {
-        background-color: #1c6494;
-    }
-</style>
-<header class="text-white p-3">
+<!-- Cabeçalho -->
+<header class="text-white py-2" style="background-color: #1c6494;">
     <div class="container d-flex justify-content-between align-items-center">
-        <img src="imagens/logo.png" alt="Logo" style="width: 100px;">
-        <form class="d-flex w-50 mx-3" id="searchForm">
-            <input class="form-control me-2" type="search" placeholder="Pesquisar produtos" aria-label="Search">
-            <button class="btn btn-light" type="submit">Pesquisar</button>
+        <img src="imagens/icone.png" alt="Logo" style="width: 40px;">
+        <form class="d-flex w-50 mx-3 position-relative" id="searchForm">
+            <input class="form-control pe-5" type="search" placeholder="Pesquisar produtos" aria-label="Search"
+                style="height: 34px; font-size: 0.9rem;">
+            <button class="btn position-absolute end-0 top-50 translate-middle-y me-2" type="submit"
+                style="background: none; border: none; padding: 0;">
+                <i class="bi bi-search text-secondary"></i>
+            </button>
         </form>
         <div class="d-flex align-items-center">
-            <a href="#" class="text-white me-4 text-decoration-none" title="Carrinho">
-                <i class="bi bi-cart-fill fs-4"></i>
+            <a href="#" class="text-white me-3 text-decoration-none" title="Carrinho">
+                <i class="bi bi-cart-fill fs-5"></i>
             </a>
-            <a href="#" class="text-white text-decoration-none" title="Conta">
-                <i class="bi bi-person-circle fs-4"></i>
+            <a href="login.html" class="text-white text-decoration-none" title="Conta">
+                <i class="bi bi-person-circle fs-5"></i>
             </a>
         </div>
     </div>
 </header>
-
-<!-- O Modal -->
-<!-- <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel"
-                            aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="myModalLabel">Entre na sua conta</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Fechar"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form action="#" method="POST">
-                                          <div class="mb-3">
-                                            <label for="email" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email" required>
-                                          </div>
-                                          <div class="mb-3">
-                                            <label for="senha" class="form-label">Senha</label>
-                                            <input type="password" class="form-control" id="senha" name="senha" placeholder="Digite sua senha" required>
-                                          </div>
-                                          <div class="d-flex justify-content-between col-4">
-                                            <button type="submit" class="btn btn-primary">Entrar <img class="seta" src="imagens/seta-direita.png"></button>
-                                          </div>
-                                        </form>
-                                        <p class="texto_cadastro">Não possui login? Cadastre-se! <a href="cadastro.html">Fazer cadastro.</a></p>
-                                      </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Fechar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-</li>
-</ul>
-</div>
-</div>
-</nav>
 
 </body>
 
