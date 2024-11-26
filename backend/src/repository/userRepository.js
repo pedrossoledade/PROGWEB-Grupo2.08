@@ -5,7 +5,12 @@ class UserRepository {
 
     async findByEmail(email) {
         return await this.prisma.user.findUnique({
-            where: { email }
+            where: {
+                email: {
+                    equals: email,
+                    mode: 'insensitive'
+                }
+            }
         });
     }
 
@@ -13,8 +18,18 @@ class UserRepository {
         return await this.prisma.user.findFirst({
             where: {
                 OR: [
-                    { email },
-                    { cpf }
+                    {
+                        email: {
+                            equals: email,
+                            mode: 'insensitive'
+                        }
+                    },
+                    {
+                        cpf: {
+                            equals: cpf,
+                            mode: 'insensitive'
+                        }
+                    }
                 ]
             }
         });

@@ -15,7 +15,12 @@ class ProductRepository {
 
     async findByName(name) {
         return await this.prisma.product.findMany({
-            where: { name }
+            where: {
+                name: {
+                    contains: name,
+                    mode: 'insensitive'
+                }
+            }
         });
     }
 
@@ -24,7 +29,10 @@ class ProductRepository {
             where: {
                 categories: {
                     some: {
-                        name: category
+                        name: {
+                            contains: category,
+                            mode: 'insensitive'
+                        }
                     }
                 }
             }
