@@ -53,14 +53,29 @@ class ProductRepository {
 
     async create(productData) {
         return await this.prisma.product.create({
-            data: productData
+            data: {
+                ...productData,
+                categories: {
+                    connect: { id: productData.categoryId }
+                }
+            }
         });
     }
 
     async update(id, productData) {
         return await this.prisma.product.update({
             where: { id: parseInt(id) },
-            data: productData
+            data: {
+                code: productData.code,
+                name: productData.name,
+                price: productData.price,
+                photo: productData.photo,
+                stockQuantity: productData.stockQuantity,
+                weight: productData.weight,
+                categories: {
+                    set: [{ id: productData.categoryId }]
+                }
+            }
         });
     }
 
