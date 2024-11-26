@@ -25,6 +25,27 @@ class OrderRepository {
             include: { items: true }
         });
     }
+
+    async findOrderById(orderId) {
+        return await this.prisma.order.findUnique({
+            where: { id: orderId },
+            include: { items: true }
+        });
+    }
+
+    async updateOrder(orderId, updateData) {
+        return await this.prisma.order.update({
+            where: { id: orderId },
+            data: updateData,
+            include: { items: true }
+        });
+    }
+
+    async deleteOrder(orderId) {
+        return await this.prisma.order.delete({
+            where: { id: orderId }
+        });
+    }
 }
 
 module.exports = OrderRepository;
