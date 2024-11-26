@@ -9,6 +9,7 @@ class OrderRepository {
             data: {
                 userId,
                 total,
+                status: 'pending', 
                 items: {
                     create: items.map(item => ({
                         productId: item.productId,
