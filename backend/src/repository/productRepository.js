@@ -52,14 +52,22 @@ class ProductRepository {
     }
 
     async create(productData) {
-        return await this.prisma.product.create({
+        const product = await this.prisma.product.create({
             data: {
-                ...productData,
-                categories: {
-                    connect: { id: productData.categoryId }
-                }
+                code: productData.code,
+                name: productData.name,
+                price: productData.price,
+                photo: productData.photo,
+                stockQuantity: productData.stockQuantity,
+                weight: productData.weight,
+                ...(productData.categoryId && {
+                    categories: {
+                        connect: { id: productData.categoryId }
+                    }
+                })
             }
         });
+        return product;
     }
 
     async update(id, productData) {
