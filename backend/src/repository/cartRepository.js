@@ -6,7 +6,7 @@ class CartRepository {
 
     async findCartByUserId(userId) {
         return await this.prisma.cart.findUnique({
-            where: { userId },
+            where: { userId: parseInt(userId) },
             include: { 
                 items: {
                     include: {
@@ -20,8 +20,8 @@ class CartRepository {
     async addItemToCart(cartId, productId, quantity) {
         return await this.prisma.cartItem.create({
             data: {
-                cartId,
-                productId,
+                cartId: parseInt(cartId),
+                productId: parseInt(productId),
                 quantity
             }
         });
@@ -29,20 +29,20 @@ class CartRepository {
 
     async removeItemFromCart(cartItemId) {
         return await this.prisma.cartItem.delete({
-            where: { id: cartItemId }
+            where: { id: parseInt(cartItemId) }
         });
     }
 
     async clearCart(cartId) {
         return await this.prisma.cartItem.deleteMany({
-            where: { cartId }
+            where: { cartId: parseInt(cartId) }
         });
     }
 
     async createCart(userId) {
         return await this.prisma.cart.create({
             data: {
-                userId
+                userId: parseInt(userId)
             }
         });
     }

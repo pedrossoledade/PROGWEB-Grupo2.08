@@ -9,7 +9,7 @@ class CategoryRepository {
 
     async findById(id) {
         return await this.prisma.category.findUnique({
-            where: {  id: parseInt(id) }
+            where: { id: parseInt(id) }
         });
     }
 
@@ -21,7 +21,7 @@ class CategoryRepository {
 
     async update(id, categoryData) {
         return await this.prisma.category.update({
-            where: {  id: parseInt(id) },
+            where: { id: parseInt(id) },
             data: categoryData
         });
     }

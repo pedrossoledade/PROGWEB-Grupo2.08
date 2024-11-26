@@ -9,7 +9,7 @@ class ProductRepository {
 
     async findById(id) {
         return await this.prisma.product.findUnique({
-            where: { id }
+            where: { id: parseInt(id) }
         });
     }
 
@@ -51,20 +51,20 @@ class ProductRepository {
 
     async update(id, productData) {
         return await this.prisma.product.update({
-            where: { id },
+            where: { id: parseInt(id) },
             data: productData
         });
     }
 
     async delete(id) {
         return await this.prisma.product.delete({
-            where: { id }
+            where: { id: parseInt(id) }
         });
     }
 
     async updateStock(productId, quantity) {
         return await this.prisma.product.update({
-            where: { id: productId },
+            where: { id: parseInt(productId) },
             data: {
                 stockQuantity: {
                     decrement: quantity
