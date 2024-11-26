@@ -7,7 +7,13 @@ class CartRepository {
     async findCartByUserId(userId) {
         return await this.prisma.cart.findUnique({
             where: { userId },
-            include: { items: true }
+            include: { 
+                items: {
+                    include: {
+                        product: true
+                    }
+                }
+            }
         });
     }
 
