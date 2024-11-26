@@ -32,6 +32,14 @@ class CartRepository {
             where: { cartId }
         });
     }
+
+    async createCart(userId) {
+        return await this.prisma.cart.create({
+            data: {
+                userId
+            }
+        });
+    }
 }
 
 module.exports = CartRepository;
