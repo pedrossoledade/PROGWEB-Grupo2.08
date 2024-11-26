@@ -1,10 +1,12 @@
 const bcrypt = require('bcryptjs');
 const UserRepository = require('../repository/userRepository');
 const prisma = require('../prisma/prismaClient');
+const CartRepository = require('../repository/cartRepository');
 
 class UserService {
     constructor() {
         this.userRepository = new UserRepository(prisma);
+        this.cartRepository = new CartRepository(prisma);
     }
 
     async register(userData) {
@@ -32,6 +34,9 @@ class UserService {
             email,
             password: hashedPassword
         });
+
+        // Cria um carrinho para o novo usuário
+        await this.cartRepository.createCart(newUser.id);
 
         return { user: newUser };
     }
