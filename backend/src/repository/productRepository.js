@@ -21,7 +21,13 @@ class ProductRepository {
 
     async findByCategory(category) {
         return await this.prisma.product.findMany({
-            where: { category }
+            where: {
+                categories: {
+                    some: {
+                        name: category
+                    }
+                }
+            }
         });
     }
 
@@ -51,10 +57,13 @@ class ProductRepository {
     }
 
     async updateStock(productId, quantity) {
-        const product = await this.findById(productId);
         return await this.prisma.product.update({
             where: { id: productId },
-            data: { stockQuantity: product.stockQuantity - quantity }
+            data: {
+                stockQuantity: {
+                    decrement: quantity
+                }
+            }
         });
     }
 }
