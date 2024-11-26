@@ -7,12 +7,12 @@ class OrderRepository {
     async createOrder(userId, items, total) {
         return await this.prisma.order.create({
             data: {
-                userId,
+                userId: parseInt(userId),
                 total,
                 status: 'pending', 
                 items: {
                     create: items.map(item => ({
-                        productId: item.productId,
+                        productId: parseInt(item.productId),
                         quantity: item.quantity
                     }))
                 }
@@ -22,7 +22,7 @@ class OrderRepository {
 
     async findOrdersByUserId(userId) {
         return await this.prisma.order.findMany({
-            where: { userId },
+            where: { userId: parseInt(userId) },
             include: { 
                 items: {
                     include: {

@@ -9,52 +9,98 @@ class ProductRepository {
 
     async findById(id) {
         return await this.prisma.product.findUnique({
-            where: { id }
+            where: { id: parseInt(id) }
         });
     }
 
     async findByName(name) {
         return await this.prisma.product.findMany({
-            where: { name }
+            where: {
+                name: {
+                    contains: name,
+                    mode: 'insensitive'
+                }
+            }
         });
     }
 
     async findByCategory(category) {
         return await this.prisma.product.findMany({
-            where: { category }
+            where: {
+                categories: {
+                    some: {
+                        name: {
+                            contains: category,
+                            mode: 'insensitive'
+                        }
+                    }
+                }
+            }
         });
     }
 
     async findByCategoryId(categoryId) {
         return await this.prisma.product.findMany({
-            where: { categoryId }
+            where: {
+                categories: {
+                    some: {
+                        id: parseInt(categoryId)
+                    }
+                }
+            }
         });
     }
 
     async create(productData) {
-        return await this.prisma.product.create({
-            data: productData
+        const product = await this.prisma.product.create({
+            data: {
+                code: productData.code,
+                name: productData.name,
+                price: productData.price,
+                photo: productData.photo,
+                stockQuantity: productData.stockQuantity,
+                weight: productData.weight,
+                ...(productData.categoryId && {
+                    categories: {
+                        connect: { id: productData.categoryId }
+                    }
+                })
+            }
         });
+        return product;
     }
 
     async update(id, productData) {
         return await this.prisma.product.update({
-            where: { id },
-            data: productData
+            where: { id: parseInt(id) },
+            data: {
+                code: productData.code,
+                name: productData.name,
+                price: productData.price,
+                photo: productData.photo,
+                stockQuantity: productData.stockQuantity,
+                weight: productData.weight,
+                categories: {
+                    set: [{ id: productData.categoryId }]
+                }
+            }
         });
     }
 
     async delete(id) {
         return await this.prisma.product.delete({
-            where: { id }
+            where: { id: parseInt(id) }
         });
     }
 
     async updateStock(productId, quantity) {
-        const product = await this.findById(productId);
         return await this.prisma.product.update({
-            where: { id: productId },
-            data: { stockQuantity: product.stockQuantity - quantity }
+            where: { id: parseInt(productId) },
+            data: {
+                stockQuantity: {
+                    decrement: quantity
+                }
+            }
         });
     }
 }
