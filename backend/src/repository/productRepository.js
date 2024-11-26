@@ -33,7 +33,13 @@ class ProductRepository {
 
     async findByCategoryId(categoryId) {
         return await this.prisma.product.findMany({
-            where: { categoryId }
+            where: {
+                categories: {
+                    some: {
+                        id: parseInt(categoryId)
+                    }
+                }
+            }
         });
     }
 
