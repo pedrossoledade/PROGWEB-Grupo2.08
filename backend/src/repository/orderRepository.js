@@ -28,14 +28,14 @@ class OrderRepository {
 
     async findOrderById(orderId) {
         return await this.prisma.order.findUnique({
-            where: { id: orderId },
+            where: { id: parseInt(orderId) }, // Converte orderId para Int
             include: { items: true }
         });
     }
 
     async updateOrder(orderId, updateData) {
         return await this.prisma.order.update({
-            where: { id: orderId },
+            where: { id: parseInt(orderId) }, // Converte orderId para Int
             data: updateData,
             include: { items: true }
         });
@@ -43,7 +43,7 @@ class OrderRepository {
 
     async deleteOrder(orderId) {
         return await this.prisma.order.delete({
-            where: { id: orderId }
+            where: { id: parseInt(orderId) } // Converte orderId para Int
         });
     }
 }
