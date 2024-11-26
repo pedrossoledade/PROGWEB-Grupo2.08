@@ -22,7 +22,46 @@ class OrderRepository {
     async findOrdersByUserId(userId) {
         return await this.prisma.order.findMany({
             where: { userId },
-            include: { items: true }
+            include: { 
+                items: {
+                    include: {
+                        product: true // Inclui os detalhes do produto
+                    }
+                }
+            }
+        });
+    }
+
+    async findOrderById(orderId) {
+        return await this.prisma.order.findUnique({
+            where: { id: parseInt(orderId) }, // Converte orderId para Int
+            include: { 
+                items: {
+                    include: {
+                        product: true // Inclui os detalhes do produto
+                    }
+                }
+            }
+        });
+    }
+
+    async updateOrder(orderId, updateData) {
+        return await this.prisma.order.update({
+            where: { id: parseInt(orderId) }, // Converte orderId para Int
+            data: updateData,
+            include: { 
+                items: {
+                    include: {
+                        product: true // Inclui os detalhes do produto
+                    }
+                }
+            }
+        });
+    }
+
+    async deleteOrder(orderId) {
+        return await this.prisma.order.delete({
+            where: { id: parseInt(orderId) } // Converte orderId para Int
         });
     }
 }

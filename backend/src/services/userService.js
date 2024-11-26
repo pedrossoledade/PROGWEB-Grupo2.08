@@ -1,12 +1,12 @@
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 const UserRepository = require('../repository/userRepository');
 const prisma = require('../prisma/prismaClient');
+const CartRepository = require('../repository/cartRepository');
 
 class UserService {
     constructor() {
         this.userRepository = new UserRepository(prisma);
-        this.JWT_SECRET = process.env.JWT_SECRET;
+        this.cartRepository = new CartRepository(prisma);
     }
 
     async register(userData) {
@@ -35,8 +35,10 @@ class UserService {
             password: hashedPassword
         });
 
-        const token = jwt.sign({ userId: newUser.id }, this.JWT_SECRET, { expiresIn: '1h' });
-        return { token, message: 'Usuário registrado com sucesso' };
+        // Cria um carrinho para o novo usuário
+        await this.cartRepository.createCart(newUser.id);
+
+        return { user: newUser };
     }
 
     async login(credentials) {
@@ -59,8 +61,7 @@ class UserService {
             throw new Error('Credenciais inválidas');
         }
 
-        const token = jwt.sign({ userId: user.id }, this.JWT_SECRET, { expiresIn: '1h' });
-        return { token, message: 'Login realizado com sucesso' };
+        return { user };
     }
 }
 
