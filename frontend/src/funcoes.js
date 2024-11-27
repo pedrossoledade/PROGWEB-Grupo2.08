@@ -167,7 +167,7 @@ async function carregarProdutos() {
         renderizarProdutos(produtos);
     } catch (error) {
         console.error('Erro:', error);
-        alert('Erro ao carregar produtos');
+        
     }
 }
 
@@ -247,7 +247,7 @@ async function carregarDetalhesProduto() {
         renderizarDetalhesProduto(produto);
     } catch (error) {
         console.error('Erro:', error);
-        alert('Erro ao carregar detalhes do produto');
+
     }
 }
 
