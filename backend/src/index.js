@@ -1,6 +1,7 @@
 const express = require('express');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const userRoutes = require('./routes/userRoutes.js');
 const productRoutes = require('./routes/productRoutes.js');
 const categoryRoutes = require('./routes/categoryRoutes.js');
@@ -23,17 +24,23 @@ app.use(session({
   cookie: { secure: false } // Use secure: true em produção com HTTPS
 }));
 
+// Adicione o middleware CORS
+app.use(cors({
+  origin: 'http://localhost:5500', // Substitua pela origem do seu frontend
+  credentials: true
+}));
 
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', 'http://localhost:5500'); // Substitua pela origem do seu frontend
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Credentials', 'true');
     next();
 });
 
 //ROTAS
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
-app.use('/products/categories', categoryRoutes);
+app.use('/categories', categoryRoutes);
 app.use('/cart', cartRoutes);
 app.use('/orders', orderRoutes);
 
@@ -43,5 +50,5 @@ app.get('/', (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });

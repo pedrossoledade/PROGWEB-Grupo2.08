@@ -61,37 +61,7 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Produto 1 -->
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="imagens/produto1.jpg" alt="Produto 1" class="img-fluid" style="width: 50px;">
-                            <span class="ms-2">Produto 1</span>
-                        </div>
-                    </td>
-                    <td>R$ 99,90</td>
-                    <td>1</td>
-                    <td>R$ 99,90</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">Remover</button>
-                    </td>
-                </tr>
-
-                <!-- Produto 2 -->
-                <tr>
-                    <td>
-                        <div class="d-flex align-items-center">
-                            <img src="imagens/produto2.jpg" alt="Produto 2" class="img-fluid" style="width: 50px;">
-                            <span class="ms-2">Produto 2</span>
-                        </div>
-                    </td>
-                    <td>R$ 199,90</td>
-                    <td>1</td>
-                    <td>R$ 199,90</td>
-                    <td>
-                        <button class="btn btn-danger btn-sm">Remover</button>
-                    </td>
-                </tr>
+                <!-- Os itens do carrinho serão renderizados aqui -->
             </tbody>
         </table>
 
@@ -100,7 +70,7 @@
         <!-- Total -->
         <div class="d-flex justify-content-between">
             <h4>Total:</h4>
-            <h4>R$ 299,80</h4>
+            <h4 id="totalCarrinho">R$ 0,00</h4>
         </div>
 
         <button class="btn btn-success mt-3">Finalizar Compra</button>
@@ -109,5 +79,6 @@
     <footer class="bg-primary text-white text-center p-3 mt-4" style="background-color: #1c6494">
         <p>&copy; 2024 Loja Online</p>
     </footer>
+    <script defer src="funcoes.js"></script>
 </body>
 </html>

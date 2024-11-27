@@ -122,12 +122,13 @@ async function login(event) {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/users/login', { // Atualize a URL aqui
+        const response = await fetch('http://localhost:3000/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
+            credentials: 'include' // Inclua os cookies de sessão
         });
         const data = await response.json();
         if (response.ok) {
@@ -205,7 +206,8 @@ async function adicionarAoCarrinho(produtoId) {
             body: JSON.stringify({
                 productId: produtoId,
                 quantity: 1
-            })
+            }),
+            credentials: 'include' // Inclua os cookies de sessão
         });
         if (!response.ok) {
             throw new Error('Erro ao adicionar ao carrinho');
@@ -261,7 +263,9 @@ document.addEventListener('DOMContentLoaded', () => {
 // Função para carregar itens do carrinho
 async function carregarCarrinho() {
     try {
-        const response = await fetch('http://localhost:3000/cart/');
+        const response = await fetch('http://localhost:3000/cart/', {
+            credentials: 'include' // Inclua os cookies de sessão
+        });
         if (!response.ok) {
             throw new Error('Erro ao buscar itens do carrinho');
         }
