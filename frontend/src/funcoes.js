@@ -132,6 +132,7 @@ async function login(event) {
         const data = await response.json();
         if (response.ok) {
             alert(data.message);
+            window.location.href = 'paginainicial.html'; 
         } else {
             alert(data.message);
         }
@@ -256,3 +257,30 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM carregado');
     carregarProdutos();
 });
+
+// Função para apagar produto pelo id
+async function apagarProduto(id) {
+    try {
+        // Realiza a requisição DELETE para apagar o produto com o id fornecido
+        const response = await fetch(`http://localhost:3000/products/${id}`, {
+            method: 'DELETE',  // Usando o método DELETE para remover o produto
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Verificando se a resposta foi bem-sucedida
+        if (!response.ok) {
+            throw new Error('Erro ao apagar produto');
+        }
+
+        // Caso o produto tenha sido apagado com sucesso
+        alert('Produto apagado com sucesso!');
+        
+        // Opcional: Recarregar os produtos após a exclusão (ou fazer outras ações)
+        carregarProdutos(); // Recarregar a lista de produtos (caso deseje exibir novamente os produtos)
+    } catch (error) {
+        console.error('Erro ao apagar o produto:', error);
+        alert('Erro ao apagar produto');
+    }
+}
