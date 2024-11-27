@@ -122,7 +122,7 @@ async function login(event) {
     }
 
     try {
-        const response = await fetch('http://localhost:3000/user/login', {
+        const response = await fetch('http://localhost:3000/users/login', { // Atualize a URL aqui
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -132,6 +132,7 @@ async function login(event) {
         const data = await response.json();
         if (response.ok) {
             alert(data.message);
+            window.location.href = 'paginaInicial.html'; // Redireciona para a página inicial
         } else {
             alert(data.message);
         }
@@ -256,3 +257,72 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM carregado');
     carregarProdutos();
 });
+
+// Função para carregar itens do carrinho
+async function carregarCarrinho() {
+    try {
+        const response = await fetch('http://localhost:3000/cart/');
+        if (!response.ok) {
+            throw new Error('Erro ao buscar itens do carrinho');
+        }
+        const carrinho = await response.json();
+        renderizarCarrinho(carrinho);
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao carregar itens do carrinho');
+    }
+}
+
+// Função para renderizar itens do carrinho na tela
+function renderizarCarrinho(carrinho) {
+    const container = document.querySelector('tbody');
+    if (!carrinho || carrinho.items.length === 0) {
+        container.innerHTML = '<tr><td colspan="5" class="text-center">Nenhum item no carrinho</td></tr>';
+        return;
+    }
+
+    container.innerHTML = carrinho.items.map(item => `
+        <tr>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img src="${item.product.photo || 'imagens/produto-sem-imagem.jpg'}" alt="${item.product.name}" class="img-fluid" style="width: 50px;">
+                    <span class="ms-2">${item.product.name}</span>
+                </div>
+            </td>
+            <td>R$ ${item.product.price.toFixed(2)}</td>
+            <td>${item.quantity}</td>
+            <td>R$ ${(item.product.price * item.quantity).toFixed(2)}</td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="removerDoCarrinho(${item.id})">Remover</button>
+            </td>
+        </tr>
+    `).join('');
+
+    atualizarTotal(carrinho);
+}
+
+// Função para atualizar o total do carrinho
+function atualizarTotal(carrinho) {
+    const total = carrinho.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
+    document.querySelector('#totalCarrinho').textContent = `R$ ${total.toFixed(2)}`;
+}
+
+// Função para remover item do carrinho
+async function removerDoCarrinho(itemId) {
+    try {
+        const response = await fetch(`http://localhost:3000/cart/${itemId}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao remover item do carrinho');
+        }
+        alert('Item removido do carrinho');
+        carregarCarrinho();
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao remover item do carrinho');
+    }
+}
+
+// Carregar itens do carrinho quando a página for carregada
+document.addEventListener('DOMContentLoaded', carregarCarrinho);
