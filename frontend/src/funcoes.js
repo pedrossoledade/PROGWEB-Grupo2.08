@@ -284,3 +284,45 @@ async function apagarProduto(id) {
         alert('Erro ao apagar produto');
     }
 }
+
+// FUNÇÕES DO CHECKOUT
+
+// Obter os modais
+var modalCreditoDebito = document.getElementById("modalCreditoDebito");
+var modalPix = document.getElementById("modalPix");
+
+// Obter o botão de submit
+var btn = document.getElementById("proximo");
+
+// Obter os elementos <span> que fecham os modais
+var spans = document.getElementsByClassName("close");
+
+// Quando o usuário clica no botão de submit
+btn.onclick = function (event) {
+  event.preventDefault(); // Evitar envio do formulário
+  var credito = document.getElementById("credito").checked;
+  var debito = document.getElementById("debito").checked;
+  var pix = document.getElementById("pix").checked;
+  if (credito || debito) {
+    modalCreditoDebito.style.display = "block";
+  } else if (pix) {
+    modalPix.style.display = "block";
+  }
+};
+
+// Quando o usuário clica em <span> (x), fecha os modais
+for (var i = 0; i < spans.length; i++) {
+  spans[i].onclick = function () {
+    modalCreditoDebito.style.display = "none";
+    modalPix.style.display = "none";
+  };
+}
+
+// Quando o usuário clica fora dos modais, fecha-os
+window.onclick = function (event) {
+  if (event.target == modalCreditoDebito) {
+    modalCreditoDebito.style.display = "none";
+  } else if (event.target == modalPix) {
+    modalPix.style.display = "none";
+  }
+};
