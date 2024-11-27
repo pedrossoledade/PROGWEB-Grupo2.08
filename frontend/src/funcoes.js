@@ -142,16 +142,40 @@ async function login(event) {
         console.error('Erro ao fazer login:', error);
         alert('Erro ao fazer login');
     }
-}
-
-// Adicionando o evento ao formulário de login
-document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
-    if (loginForm) {
-        loginForm.addEventListener('submit', login);
+    async function login(event) {
+        event.preventDefault(); // Previne o comportamento padrão do formulário
+    
+        const form = event.target;
+        const email = form.email.value;
+        const password = form.password.value;
+    
+        if (!email) {
+            return alert('O campo email é obrigatório');
+        }
+        if (!password) {
+            return alert('O campo senha é obrigatório');
+        }
+    
+        try {
+            const response = await fetch('http://localhost:3000/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                alert(data.message);
+                window.location.href = 'paginaInicial.html'; 
+            } else {
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error('Error logging in:', error);
+            alert('Erro ao fazer login');
+        }
     }
-});
-
 
 // Função para carregar produtos
 async function carregarProdutos() {
