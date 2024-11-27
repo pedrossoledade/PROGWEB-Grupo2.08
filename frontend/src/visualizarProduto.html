@@ -8,7 +8,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link href="estilos/paginaInicial.css" rel="stylesheet" />
-  <script defer src="scripts/funcoes.js"></script> <!-- Script para buscar dados -->
+
   <title>Detalhes do Produto</title>
 </head>
 
@@ -57,36 +57,24 @@
         <div id="carouselProduto" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="imagens/produto1.jpg" class="d-block w-100" alt="Produto 1">
-            </div>
-            <div class="carousel-item">
-              <img src="imagens/produto1_2.jpg" class="d-block w-100" alt="Produto 1 - Imagem 2">
-            </div>
-            <div class="carousel-item">
-              <img src="imagens/produto1_3.jpg" class="d-block w-100" alt="Produto 1 - Imagem 3">
+              <img src="imagens/produto1.jpg" class="d-block w-100 card-img-top" alt="Produto">
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduto" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Anterior</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselProduto" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Próximo</span>
-          </button>
         </div>
       </div>
       <div class="col-md-6">
-        <h2>Produto 1</h2>
-        <p>Descrição detalhada do Produto 1.</p>
-        <p><strong>Preço:</strong> R$ 99,90</p>
-        <p>Marca: Logitech</p>
+        <h2>Produto</h2>
+        <p class="card-text">R$ 0,00</p>
+        <p class="card-description">Descrição do produto</p>
         <div class="mb-3">
           <label for="quantidade" class="form-label">Quantidade:</label>
           <input type="number" id="quantidade" class="form-control" value="1" min="1">
         </div>
         <button class="btn btn-orange">Adicionar ao Carrinho</button>
       </div>
+    </div>
+    <div class="row" id="produtosContainer">
+      <!-- Os produtos serão renderizados aqui -->
     </div>
   </main>
 
@@ -118,6 +106,7 @@
       </div>
     </div>
   </footer>
+  <script defer src="funcoes.js"></script>
 </body>
 
 </html>
