@@ -23,6 +23,13 @@ app.use(session({
   cookie: { secure: false } // Use secure: true em produção com HTTPS
 }));
 
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 //ROTAS
 app.use('/users', userRoutes);
 app.use('/products', productRoutes);
