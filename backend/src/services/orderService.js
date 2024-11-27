@@ -39,6 +39,18 @@ class OrderService {
     async getOrdersByUserId(userId) {
         return await this.orderRepository.findOrdersByUserId(userId);
     }
+
+    async getOrderById(orderId) {
+        return await this.orderRepository.findOrderById(orderId);
+    }
+
+    async updateOrder(orderId, updateData) {
+        return await this.orderRepository.updateOrder(orderId, updateData);
+    }
+
+    async deleteOrder(orderId) {
+        return await this.orderRepository.deleteOrder(orderId);
+    }
 }
 
 module.exports = new OrderService();
