@@ -162,6 +162,10 @@ async function carregarProdutos() {
 // Função para renderizar produtos na tela
 function renderizarProdutos(produtos) {
     const container = document.getElementById('produtosContainer');
+    if (!container) {
+        console.error('Elemento produtosContainer não encontrado');
+        return;
+    }
     if (!produtos || produtos.length === 0) {
         container.innerHTML = '<p class="text-center">Nenhum produto encontrado</p>';
         return;
@@ -211,6 +215,41 @@ async function adicionarAoCarrinho(produtoId) {
         alert('Erro ao adicionar ao carrinho');
     }
 }
+
+// Função para carregar detalhes do produto
+async function carregarDetalhesProduto() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id');
+
+    if (!productId) {
+        alert('Produto não encontrado');
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:3000/products/findById/${productId}`);
+        if (!response.ok) {
+            throw new Error('Erro ao buscar detalhes do produto');
+        }
+        const produto = await response.json();
+        renderizarDetalhesProduto(produto);
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao carregar detalhes do produto');
+    }
+}
+
+// Função para renderizar detalhes do produto na tela
+function renderizarDetalhesProduto(produto) {
+    document.querySelector('h2').textContent = produto.name;
+    document.querySelector('.card-text').textContent = `R$ ${produto.price.toFixed(2)}`;
+    document.querySelector('.card-img-top').src = produto.photo || 'imagens/produto-sem-imagem.jpg';
+    document.querySelector('.card-description').textContent = produto.description || 'Sem descrição disponível';
+    document.querySelector('.btn-orange').setAttribute('onclick', `adicionarAoCarrinho(${produto.id})`);
+}
+
+// Carregar detalhes do produto quando a página for carregada
+document.addEventListener('DOMContentLoaded', carregarDetalhesProduto);
 
 // Carregar produtos quando a página for carregada
 document.addEventListener('DOMContentLoaded', () => {
