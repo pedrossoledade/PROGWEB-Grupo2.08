@@ -1,20 +1,18 @@
 <!DOCTYPE html>
-<html lang="PT-BR">
+<html lang="pt-BR">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="funcoes.js"></script>
     <link href="estilos/login.css" rel="stylesheet" />
-    <link href="funcoes.js">
-    <title>Login</title>
 </head>
 
 <body>
@@ -31,23 +29,19 @@
         <div class="right-side col-12 col-md-6 d-flex justify-content-center align-items-center">
             <div class="formulario">
                 <h3 class="text-center mb-4 text-dark">Entre</h3>
-
-                <form action="http://localhost:3000/users/login" method="POST" onsubmit="login(event)">
-                    <!-- Campo de Email -->
-                    <div class="form-group">
+                <form id="loginForm">
+                    <div class="form-group mb-3">
                         <label for="email" class="text-dark">Email</label>
                         <input type="email" class="form-control" id="email" name="email" placeholder="Digite seu email"
                             required>
+                        <div id="emailError" class="text-danger"></div>
                     </div>
-
-                    <!-- Campo de Senha -->
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="senha" class="text-dark">Senha</label>
-                        <input type="password" class="form-control" id="senha" name="senha"
+                        <input type="password" class="form-control" id="senha" name="password"
                             placeholder="Digite sua senha" required>
+                        <div id="passwordError" class="text-danger"></div>
                     </div>
-
-                    <!-- Botão de Login -->
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-orange d-flex align-items-center enviar"
                             style="color: black;">
@@ -55,8 +49,6 @@
                             <i class="bi bi-caret-right-fill custom-icon"></i>
                         </button>
                     </div>
-
-
                 </form>
                 <p class="texto_cadastro text-center">Não possui login? <a href="cadastro.html"
                         class="link-cadastro">Cadastre-se!</a></p>
@@ -64,9 +56,6 @@
         </div>
     </div>
 
-    <!-- Scripts do Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
