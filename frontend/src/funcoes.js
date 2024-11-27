@@ -1,5 +1,7 @@
-var myModal = document.getElementById('myModal')
-var myInput = document.getElementById('myInput')
+console.log('Script carregado');
+
+var myModal = document.getElementById('myModal');
+var myInput = document.getElementById('myInput');
 
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById('cadastroForm');
@@ -22,32 +24,36 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   }
 
-  // Validação dos campos
+  // Validação dos campos  
+  /**                                 tava dando ERRO, por isso o comentei 
+   
   cpfInput.addEventListener('blur', () => {
-      validateField(cpfInput, 'cpfError', cpfRegex.test(cpfInput.value), "CPF deve estar no formato 999.999.999-99.");
-  });
+    validateField(cpfInput, 'cpfError', cpfRegex.test(cpfInput.value), "CPF deve estar no formato 999.999.999-99.");
+});
 
-  phoneInput.addEventListener('blur', () => {
-      validateField(phoneInput, 'phoneError', phoneRegex.test(phoneInput.value), "Telefone deve estar no formato (99)99999-9999.");
-  });
+phoneInput.addEventListener('blur', () => {
+    validateField(phoneInput, 'phoneError', phoneRegex.test(phoneInput.value), "Telefone deve estar no formato (99)99999-9999.");
+});
 
-  confirmPasswordInput.addEventListener('blur', () => {
-      validateField(confirmPasswordInput, 'confirmPasswordError', passwordInput.value === confirmPasswordInput.value, "As senhas não correspondem.");
-  });
+confirmPasswordInput.addEventListener('blur', () => {
+    validateField(confirmPasswordInput, 'confirmPasswordError', passwordInput.value === confirmPasswordInput.value, "As senhas não correspondem.");
+});
 
-  emailInput.addEventListener('blur', () => {
-      validateField(emailInput, 'emailError', emailInput.validity.valid, "Digite um email válido.");
-  });
+emailInput.addEventListener('blur', () => {
+    validateField(emailInput, 'emailError', emailInput.validity.valid, "Digite um email válido.");
+});
+*/
 
-  form.addEventListener('submit', (event) => {
-      if (document.querySelectorAll('.text-danger').some(el => el.textContent !== '')) {
-          event.preventDefault();
-      }
-  });
+form.addEventListener('submit', (event) => {
+    if (document.querySelectorAll('.text-danger').some(el => el.textContent !== '')) {
+        event.preventDefault();
+    }
+});
 });
 
 myModal.addEventListener('shown.bs.modal', function () {
-  myInput.focus()
+    myInput.focus()
+    
 })
 
 function cadastro(){
@@ -126,3 +132,80 @@ async function login(event) {
         alert('Erro ao fazer login');
     }
 }
+
+// Função para carregar produtos
+async function carregarProdutos() {
+    console.log('Iniciando carregamento de produtos');
+    try {
+        const response = await fetch('http://localhost:3000/products/');
+        console.log('Response:', response);
+        if (!response.ok) {
+            throw new Error('Erro ao buscar produtos');
+        }
+        const produtos = await response.json();
+        console.log('Produtos:', produtos);
+        renderizarProdutos(produtos);
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao carregar produtos');
+    }
+}
+
+// Função para renderizar produtos na tela
+function renderizarProdutos(produtos) {
+    const container = document.getElementById('produtosContainer');
+    if (!produtos || produtos.length === 0) {
+        container.innerHTML = '<p class="text-center">Nenhum produto encontrado</p>';
+        return;
+    }
+    
+    container.innerHTML = produtos.map(produto => `
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="${produto.photo || 'imagens/produto-sem-imagem.jpg'}" 
+                     class="card-img-top" 
+                     alt="${produto.name}"
+                     style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title">${produto.name}</h5>
+                    <p class="card-text">R$ ${produto.price.toFixed(2)}</p>
+                    <a href="visualizarProduto.html?id=${produto.id}" 
+                       class="btn btn-primary">Ver Detalhes</a>
+                    <button onclick="adicionarAoCarrinho(${produto.id})" 
+                            class="btn btn-orange">
+                            Adicionar ao Carrinho
+                    </button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Função para adicionar ao carrinho
+async function adicionarAoCarrinho(produtoId) {
+    try {
+        const response = await fetch('http://localhost:3000/cart/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: produtoId,
+                quantity: 1
+            })
+        });
+        if (!response.ok) {
+            throw new Error('Erro ao adicionar ao carrinho');
+        }
+        alert('Produto adicionado ao carrinho!');
+    } catch (error) {
+        console.error('Erro:', error);
+        alert('Erro ao adicionar ao carrinho');
+    }
+}
+
+// Carregar produtos quando a página for carregada
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM carregado');
+    carregarProdutos();
+});
